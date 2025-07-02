@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "1.0.0",
 	"scripts": {
-		"lint": "biome check . --write",
+		"lint": "biome check --write",
 		"dev:web": "yarn workspace web dev",
 		"dev:mobile": "yarn workspace mobile start",
 		"dev:backend": "yarn workspace backend start:dev",
