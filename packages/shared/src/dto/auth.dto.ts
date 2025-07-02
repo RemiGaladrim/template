@@ -1,34 +1,44 @@
-// DTOs d'authentification partagés entre backend et frontends
+import { z } from "zod";
 
-export interface SignInDto {
-  email: string;
-  password: string;
-}
+// Schémas Zod pour la validation et génération de types
 
-export interface SignUpDto {
-  email: string;
-  password: string;
-  name: string;
-}
+export const SignInDtoSchema = z.object({
+	email: z.string().email("Format d'email invalide"),
+	password: z.string().min(1, "Le mot de passe est requis"),
+});
 
-export interface JwtPayloadDto {
-  sub: string;
-  email: string;
-  iat?: number;
-  exp?: number;
-}
+export const SignUpDtoSchema = z.object({
+	email: z.string().email("Format d'email invalide"),
+	password: z
+		.string()
+		.min(8, "Le mot de passe doit contenir au moins 8 caractères"),
+	name: z.string().min(1, "Le nom est requis"),
+});
 
-// Types pour les réponses d'authentification
-export interface AuthResponse {
-  access_token: string;
-  refresh_token?: string;
-  user: UserDto;
-}
+export const JwtPayloadDtoSchema = z.object({
+	sub: z.string(),
+	email: z.string().email(),
+	iat: z.number().optional(),
+	exp: z.number().optional(),
+});
 
-export interface UserDto {
-  id: string;
-  email: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export const UserDtoSchema = z.object({
+	id: z.string(),
+	email: z.string().email(),
+	name: z.string(),
+	createdAt: z.date(),
+	updatedAt: z.date(),
+});
+
+export const AuthResponseSchema = z.object({
+	access_token: z.string(),
+	refresh_token: z.string().optional(),
+	user: UserDtoSchema,
+});
+
+// Types inférés de Zod
+export type SignInDto = z.infer<typeof SignInDtoSchema>;
+export type SignUpDto = z.infer<typeof SignUpDtoSchema>;
+export type JwtPayloadDto = z.infer<typeof JwtPayloadDtoSchema>;
+export type UserDto = z.infer<typeof UserDtoSchema>;
+export type AuthResponse = z.infer<typeof AuthResponseSchema>;

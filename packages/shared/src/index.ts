@@ -1,11 +1,19 @@
-// Export de tous les DTOs et types partagés
-export * from "./dto/auth.dto";
-
-// Réexport pour faciliter l'importation
 export type {
-  SignInDto,
-  SignUpDto,
-  JwtPayloadDto,
-  AuthResponse,
-  UserDto,
+	AuthResponse,
+	JwtPayloadDto,
+	SignInDto,
+	SignUpDto,
+	UserDto,
 } from "./dto/auth.dto";
+export {
+	AuthResponseSchema,
+	JwtPayloadDtoSchema,
+	SignInDtoSchema,
+	SignUpDtoSchema,
+	UserDtoSchema,
+} from "./dto/auth.dto";
+export {
+	formatZodErrors,
+	validateData,
+	validateDataSafe,
+} from "./utils/validation";
