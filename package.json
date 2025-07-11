@@ -1,13 +1,14 @@
 {
 	"name": "project",
 	"private": true,
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"scripts": {
 		"lint": "biome check --write",
 		"dev:web": "yarn workspace web dev",
 		"dev:mobile": "yarn workspace mobile start",
 		"dev:backend": "yarn workspace backend start:dev",
-		"db:generate": "yarn workspace backend db:generate"
+		"db:generate": "yarn workspace backend db:generate",
+		"db:start": "docker compose -f apps/backend/docker-compose.yml up"
 	},
 	"workspaces": [
 		"apps/*",
